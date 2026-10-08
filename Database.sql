@@ -4,13 +4,13 @@
 --USE MoviesDb;
 --GO
 
---CREATE TABLE Genre
+--CREATE TABLE Genres
 --(
 --	Id INT PRIMARY KEY IDENTITY(1,1),
 --	GenreName NVARCHAR(50) NOT NULL
 --);
 
---INSERT INTO Genre (GenreName)
+--INSERT INTO Genres (GenreName)
 --VALUES ('Action'), ('Drama'), ('Science Fiction'),
 --       ('Documentary'), ('Fantasy'), ('Comedy');
 
@@ -20,8 +20,8 @@
 --    Title NVARCHAR(100) NOT NULL,
 --    ReleaseYear INT NOT NULL,
 --    GenreId INT NOT NULL,
---    CONSTRAINT FK_Movies_Genre
---        FOREIGN KEY (GenreId) REFERENCES Genre(Id)
+--    CONSTRAINT FK_Movies_Genres
+--        FOREIGN KEY (GenreId) REFERENCES Genres(Id)
 --);
 
 --INSERT INTO Movies (Title, ReleaseYear, GenreId) 

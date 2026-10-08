@@ -9,12 +9,23 @@ namespace JillsMovies
     {
         static void Main(string[] args)
         {
-            var db = new DatabaseConnection();
+            //var db = new DatabaseConnection();
 
-            using var connection = db.CreateConnection();
-            connection.Open();
+            //using var connection = db.CreateConnection();
+            //connection.Open();
 
-            Console.WriteLine("Connected!");
+            //Console.WriteLine("Connected!");
+
+            var repo = new MovieRepository();
+
+            var movies = repo.GetAllMovies();
+
+            foreach (var movie in movies)
+            {
+                Console.WriteLine(movie);
+            }
+
+
         }
     }
 }
