@@ -12,6 +12,5 @@
         {
             return $"{Id}: {Title} ({ReleaseYear}) - {GenreName}";
         }
-
     }
 }
