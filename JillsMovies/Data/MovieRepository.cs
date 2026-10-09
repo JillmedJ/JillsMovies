@@ -24,7 +24,7 @@ namespace JillsMovies.Data
             SELECT m.Id, m.Title, m.ReleaseYear, m.GenreId, g.GenreName
             FROM Movies m
             JOIN Genres g ON m.GenreId = g.Id
-            ORDER BY m.Title";
+            ORDER BY m.Id";
 
             using var connection = _connection.CreateConnection();
             connection.Open();
@@ -50,7 +50,7 @@ namespace JillsMovies.Data
             return movies; // Visa alla filmer med listat innehåll
         }
 
-        public List<Movie> GetMoviesByGenre(string genreName)
+        public List<Movie> GetMoviesByGenre(int genreId)
         {
             var movies = new List<Movie>();
 
@@ -58,15 +58,15 @@ namespace JillsMovies.Data
             SELECT m.Id, m.Title, m.ReleaseYear, m.GenreId, g.GenreName
             FROM Movies m
             JOIN Genres g ON m.GenreId = g.Id
-            WHERE g.GenreName = @GenreName
-            ORDER BY m.Title";
+            WHERE g.Id = @GenreId
+            ORDER BY m.Id";
 
             using var connection = _connection.CreateConnection();
             connection.Open();
 
             using var sqlCommand = new SqlCommand(sqlGenreGroup, connection);
 
-            sqlCommand.Parameters.AddWithValue("@GenreName", genreName); // Skydd mot felaktigt input, ex DROP TAbLE 
+            sqlCommand.Parameters.AddWithValue("@GenreId", genreId); // Skydd mot felaktigt input, ex DROP TAbLE 
 
             using var reader = sqlCommand.ExecuteReader();
 
@@ -96,7 +96,7 @@ namespace JillsMovies.Data
             string sqlAllGenres = @"
             SELECT g.Id, g.GenreName
             FROM Genres g
-            ORDER BY g.GenreName";
+            ORDER BY g.Id";
 
             using var connection = _connection.CreateConnection();
             connection.Open();

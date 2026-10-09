@@ -30,9 +30,13 @@ namespace JillsMovies
                 Console.WriteLine("3. Lägg till film");
                 Console.WriteLine("4. Ta bort film");
                 Console.WriteLine("0. Avsluta");
+                Console.WriteLine();
+
                 Console.Write("Välj: ");
+                Console.WriteLine();
 
                 string? choice = Console.ReadLine();
+                Console.Clear();
 
                 switch (choice)
                 {
