@@ -1,5 +1,6 @@
 ﻿using JillsMovies.Data;
 using JillsMovies.Models;
+using JillsMovies.UI;
 using System.Data; // behövs för att kunna skriva new Movie
 
 namespace JillsMovies
@@ -15,7 +16,10 @@ namespace JillsMovies
 
             //Console.WriteLine("Connected!");
 
-            var app = new Application();
+            var movieMenuCases = new MovieMenuCases();
+
+            var app = new Application(movieMenuCases);
+
             app.RunMenu();
         }
     }
