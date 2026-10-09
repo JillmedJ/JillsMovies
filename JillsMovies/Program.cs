@@ -19,24 +19,19 @@ namespace JillsMovies
             // Skapa repositoryt (det skapar i sin tur DatabaseConnection)
             var repo = new MovieRepository();
 
-            Console.WriteLine("Ange genre: ");
-            string genreNameInput = Console.ReadLine()!;
+            //Console.WriteLine("Ange genre: ");
+            //string genreNameInput = Console.ReadLine()!;
 
-            // Hämta alla filmer från databasen
-            var movies = repo.GetMoviesByGenre(genreNameInput);
+            // Hämta alla genrer från databasen
+            var genres = repo.GetAllGenres();
 
-            if (movies.Count == 0)
-            {
-                Console.WriteLine("Inga filmer hittades i denna genre.");
-            }
-            else
-            {
-                // Skriv ut varje film – använder ToString() i Movie
-                foreach (var movie in movies)
+           
+                // Skriv ut varje genre – använder ToString() i Genre
+                foreach (var genre in genres)
                 {
-                    Console.WriteLine(movie);
+                    Console.WriteLine(genre);
                 }
-            }
+            
 
             
 

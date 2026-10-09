@@ -87,5 +87,41 @@ namespace JillsMovies.Data
             return movies;
 
         }
+
+        public List<Genre> GetAllGenres()
+        {
+            var genres = new List<Genre>();
+
+            string sqlAllGenres = @"
+            SELECT g.Id, g.GenreName
+            FROM Genres g
+            ORDER BY g.GenreName";
+
+            using var connection = _connection.CreateConnection();
+            connection.Open();
+
+            using var sqlCommand = new SqlCommand(sqlAllGenres, connection);
+
+            using var reader = sqlCommand.ExecuteReader();
+
+            while (reader.Read())
+            {
+                var genre = new Genre()
+                {
+                    Id = reader.GetInt32(0),
+                    GenreName = reader.GetString(1)
+                };
+
+                genres.Add(genre); // Lägg till så att den enskilda genren med listat innehåll visas
+            }
+
+            return genres; // Visa alla filmer med listat innehåll
+        }
+
+
+
+
+
+
     }
 }
