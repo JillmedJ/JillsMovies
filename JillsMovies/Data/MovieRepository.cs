@@ -1,8 +1,9 @@
-﻿using System;
+﻿using JillsMovies.Models;
+using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using JillsMovies.Models;
-using Microsoft.Data.SqlClient;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace JillsMovies.Data
 {
@@ -119,6 +120,25 @@ namespace JillsMovies.Data
         }
 
 
+        public int AddMovie(Movie movie) // Returnerar antal rader som lades till (1 = lyckades)
+        {
+            string sqlAddMovie = @"
+                                INSERT INTO Movies(Title, ReleaseYear, GenreId)
+                                VALUES(@Title, @ReleaseYear, @GenreId)";
+
+            using var connection = _connection.CreateConnection();
+            connection.Open();
+
+            using var sqlCommand = new SqlCommand(sqlAddMovie, connection);
+
+            sqlCommand.Parameters.AddWithValue("@Title", movie.Title); // Skydd mot felaktigt input, ex DROP TAbLE 
+            sqlCommand.Parameters.AddWithValue("@ReleaseYear", movie.ReleaseYear); // Skydd mot felaktigt input, ex DROP TAbLE 
+            sqlCommand.Parameters.AddWithValue("@GenreId", movie.GenreId); // Skydd mot felaktigt input, ex DROP TAbLE 
+
+            int rowsAffected = sqlCommand.ExecuteNonQuery(); // 1 = en ny rad skapades i databasen
+
+            return rowsAffected; // ExecuteNonQuery = ändra data.Returnerar antal påverkade rader.
+        }
 
 
 
