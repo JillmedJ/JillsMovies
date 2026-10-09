@@ -1,5 +1,6 @@
 ﻿using JillsMovies.Data;
-using JillsMovies.Models; // behövs för att kunna skriva new Movie
+using JillsMovies.Models;
+using System.Data; // behövs för att kunna skriva new Movie
 
 namespace JillsMovies
 {
@@ -14,51 +15,38 @@ namespace JillsMovies
 
             //Console.WriteLine("Connected!");
 
+
             // Skapa repositoryt (det skapar i sin tur DatabaseConnection)
             var repo = new MovieRepository();
 
             // Skriv ut varje genre – använder ToString() i Genre
-            foreach (var genre in repo.GetAllGenres())
+            foreach (var movie in repo.GetAllMovies())
             {
-                Console.WriteLine(genre);
+                Console.WriteLine(movie);
             }
 
-            Console.WriteLine("Ange genre-ID: ");
-            int genreIdInput = int.Parse(Console.ReadLine()!);
-
-            Console.WriteLine("Ange titel: ");
-            string titelInput = Console.ReadLine()!;
-
-            Console.WriteLine("Ange utgivningsår: ");
-            int releaseYear = int.Parse(Console.ReadLine()!);
-
-
-            var newMovie = new Movie //  Packa ihop användarens svar till ETT Movie-objekt
-            {
-                Title = titelInput,
-                ReleaseYear = releaseYear,
-                GenreId = genreIdInput
-            };
+            Console.WriteLine();
+            Console.WriteLine("Ange film-ID: ");
+            int movieIdInput = int.Parse(Console.ReadLine()!);
 
             // Skicka paketet till databasen
-            int rowsAffected = repo.AddMovie(newMovie);
+            int rowsAffected = repo.DeleteMovie(movieIdInput);
 
             if (rowsAffected == 1)
             {
-                Console.WriteLine($"{rowsAffected} film lades till.");
-                Console.WriteLine($"Filmen {newMovie} lades till.");
+                Console.WriteLine($"Filmen togs bort.");
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine("Ingen film med det Id:t hittades.");
+                Console.WriteLine();
             }
 
             foreach (var movie in repo.GetAllMovies())
             {
                 Console.WriteLine(movie);
             }
-
-
-
-
-
-
 
 
         }

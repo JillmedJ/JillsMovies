@@ -140,8 +140,22 @@ namespace JillsMovies.Data
             return rowsAffected; // ExecuteNonQuery = ändra data.Returnerar antal påverkade rader.
         }
 
+        public int DeleteMovie(int inputMovieId)
+        { 
+            string sqlDeleteMovie = @"DELETE
+                                    FROM Movies
+                                    Where Id = @Id";
 
+            using var connection = _connection.CreateConnection();
+            connection.Open();
 
+            using var sqlCommand = new SqlCommand(sqlDeleteMovie, connection);
 
+            sqlCommand.Parameters.AddWithValue("@Id", inputMovieId); // Skydd mot felaktigt input, ex DROP TAbLE 
+
+            int rowsAffected = sqlCommand.ExecuteNonQuery(); // 1 = en ny rad skapades i databasen
+
+            return rowsAffected; // ExecuteNonQuery = ändra data.Returnerar antal påverkade rader.
+        }
     }
 }
